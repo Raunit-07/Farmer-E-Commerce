@@ -12,3 +12,6 @@ dist/
 .vscode/
 # Others
 *.log
+
+# MongoDB data directory
+.mongodb-data/
