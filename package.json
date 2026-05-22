@@ -4,6 +4,7 @@
   "description": "AgroMitra - Buyer & Seller Marketplace",
   "scripts": {
     "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "start": "./start.sh",
     "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
     "dev-backend": "cd backend && npm run dev",
     "dev-frontend": "cd frontend && npm run dev"
