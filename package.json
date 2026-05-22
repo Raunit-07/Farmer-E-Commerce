@@ -5,7 +5,7 @@
   "main": "backend/src/server.js",
   "scripts": {
     "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
-    "start": "npm --prefix backend run start",
+    "start": "npm --prefix backend ci && npm --prefix backend run start",
     "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
     "dev-backend": "cd backend && npm run dev",
     "dev-frontend": "cd frontend && npm run dev"
