@@ -13,7 +13,7 @@ function normalizeRole(role) {
   return value === "seller" ? "farmer" : value;
 }
 
-export async function sendRegisterOtp(req, res) {
+  console.log('🔔 Received OTP registration request for', normalizedEmail);
   try {
     const normalizedEmail = req.body.email?.trim().toLowerCase();
 
