@@ -67,13 +67,13 @@
 
 
 const API_BASE_URL = (
-  import.meta.env.VITE_API_URL ||
   import.meta.env.VITE_API_BASE_URL ||
-  ""
+  `${import.meta.env.VITE_API_URL}/api`
 ).replace(/\/$/, "");
 
 const parseResponse = async (res, fallbackMessage) => {
   const text = await res.text();
+
   let data = {};
 
   try {
@@ -83,30 +83,75 @@ const parseResponse = async (res, fallbackMessage) => {
   }
 
   if (!res.ok) {
-    throw new Error(data?.message || fallbackMessage);
+    throw new Error(
+      data?.message || fallbackMessage
+    );
   }
 
   return data;
 };
 
-export const sendRegisterOtp = async ({ email }) => {
-  const normalizedEmail = email.trim().toLowerCase();
+/**
+ * =========================
+ * SEND OTP
+ * =========================
+ */
 
-  const res = await fetch(`${API_BASE_URL}/auth/otp/register/send-otp`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: normalizedEmail }),
-  });
+export const sendRegisterOtp = async ({
+  email,
+}) => {
+  const normalizedEmail = email
+    .trim()
+    .toLowerCase();
 
-  return parseResponse(res, "OTP send failed");
+  const res = await fetch(
+    `${API_BASE_URL}/auth/otp/register/send-otp`,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
+
+      body: JSON.stringify({
+        email: normalizedEmail,
+      }),
+    }
+  );
+
+  return parseResponse(
+    res,
+    "OTP send failed"
+  );
 };
 
-export const verifyRegisterOtp = async (payload) => {
-  const res = await fetch(`${API_BASE_URL}/auth/otp/register/verify-otp`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+/**
+ * =========================
+ * VERIFY OTP
+ * =========================
+ */
 
-  return parseResponse(res, "OTP verification failed");
-};
+export const verifyRegisterOtp =
+  async (payload) => {
+    const res = await fetch(
+      `${API_BASE_URL}/auth/otp/register/verify-otp`,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify(
+          payload
+        ),
+      }
+    );
+
+    return parseResponse(
+      res,
+      "OTP verification failed"
+    );
+  };
