@@ -91,31 +91,21 @@ const parseResponse = async (res, fallbackMessage) => {
   return data;
 };
 
-/**
- * =========================
- * SEND OTP
- * =========================
- */
-
 export const sendRegisterOtp = async ({
   email,
 }) => {
-  const normalizedEmail = email
-    .trim()
-    .toLowerCase();
-
   const res = await fetch(
     `${API_BASE_URL}/auth/otp/register/send-otp`,
     {
       method: "POST",
-
       headers: {
         "Content-Type":
           "application/json",
       },
-
       body: JSON.stringify({
-        email: normalizedEmail,
+        email: email
+          .trim()
+          .toLowerCase(),
       }),
     }
   );
@@ -126,24 +116,16 @@ export const sendRegisterOtp = async ({
   );
 };
 
-/**
- * =========================
- * VERIFY OTP
- * =========================
- */
-
 export const verifyRegisterOtp =
   async (payload) => {
     const res = await fetch(
       `${API_BASE_URL}/auth/otp/register/verify-otp`,
       {
         method: "POST",
-
         headers: {
           "Content-Type":
             "application/json",
         },
-
         body: JSON.stringify(
           payload
         ),
